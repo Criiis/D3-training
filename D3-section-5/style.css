@@ -1,0 +1,13 @@
+h1 {
+  text-align: center;
+}
+
+h1:not(:first-child) {
+  margin-top: 50px;
+}
+
+.chart {
+  width: 500px;
+  height: 125px;
+  margin: 25px auto;
+}
