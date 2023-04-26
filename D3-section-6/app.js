@@ -55,20 +55,48 @@ async function draw() {
       .range([dimensions.ctrHeight, 0])
       .nice();
 
+    const existTransition = d3.transition().duration(500);
+    const updateTransition = existTransition.transition().duration(500);
+
     //Draw Bars
     const bars = ctr
       .selectAll("rect")
       .data(newDataset)
-      .join("rect")
-      .attr("width", (d) => d3.max([0, xScale(d.x1) - xScale(d.x0) - dimensions.padding * 2]))
-      .attr("height", (d) => dimensions.ctrHeight - yScale(yAccessor(d)))
+      .join(
+        (enter) =>
+          enter
+            .append("rect")
+            .attr("width", (d) => d3.max([0, xScale(d.x1) - xScale(d.x0) - dimensions.padding * 2]))
+            .attr("height", 0)
+            .attr("x", (d) => xScale(d.x0))
+            .attr("y", dimensions.ctrHeight),
+        (update) => update,
+        (exit) =>
+          exit
+            .transition(existTransition)
+            .attr("y", dimensions.ctrHeight)
+            .attr("height", 0)
+            .remove()
+      )
+      .transition(updateTransition)
       .attr("x", (d) => xScale(d.x0))
-      .attr("y", (d) => yScale(yAccessor(d)));
+      .attr("y", (d) => yScale(yAccessor(d)))
+      .attr("width", (d) => d3.max([0, xScale(d.x1) - xScale(d.x0) - dimensions.padding * 2]))
+      .attr("height", (d) => dimensions.ctrHeight - yScale(yAccessor(d)));
 
     labelsGroup
       .selectAll("text")
       .data(newDataset)
-      .join("text")
+      .join(
+        (enter) =>
+          enter
+            .append("text")
+            .attr("x", (d) => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
+            .attr("y", dimensions.ctrHeight),
+        (update) => update,
+        (exit) => exit.transition(existTransition).attr("y", dimensions.ctrHeight).remove()
+      )
+      .transition(updateTransition)
       .attr("x", (d) => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
       .attr("y", (d) => yScale(yAccessor(d)) - 10)
       .text(yAccessor);
