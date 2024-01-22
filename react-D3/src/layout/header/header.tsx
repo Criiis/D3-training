@@ -4,7 +4,7 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="w-full max-w-screen-md mx-auto mt-2 p-3 rounded-lg shadow-simple bg-white flex items-center justify-between">
+    <header className="w-full max-w-screen-md mx-auto mt-2 p-1 flex items-center justify-between">
       {/* Search bar */}
       <div className="w-5/12 flex items-center relative py-1 px-3 bg-slate-50 rounded-3xl border border-solid border-slate-400">
         <input
@@ -40,7 +40,7 @@ const Header = () => {
           />
           <label className="relative cursor-pointer p-2" htmlFor="light-switch">
             {theme === "dark" ? (
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+              <svg width={16} height={16} xmlns="http://www.w3.org/2000/svg">
                 <path
                   className="fill-slate-300"
                   d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z"
@@ -51,7 +51,7 @@ const Header = () => {
                 />
               </svg>
             ) : (
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+              <svg width={16} height={16} xmlns="http://www.w3.org/2000/svg">
                 <path
                   className="fill-slate-400"
                   d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z"
