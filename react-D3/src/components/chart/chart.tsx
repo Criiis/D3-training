@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import classes from "./chart.module.css";
-import dataSet from "../../../public/data-1.json";
+import dataSet from "../../data/data-1.json";
 
 import * as d3 from "d3";
 
@@ -14,7 +14,7 @@ const dimensions = {
 const Chart = () => {
   const chartRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [data, setData] = useState(dataSet);
+  const [data] = useState(dataSet);
 
   useEffect(() => {
     const colorDomain = d3.extent(data) as [number, number];
