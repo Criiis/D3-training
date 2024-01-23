@@ -10,6 +10,9 @@ export default {
       boxShadow: {
         simple: "0px 7px 8px -6px rgba(0,0,0,0.37);",
       },
+      transitionProperty: {
+        bg: "background-color",
+      },
     },
   },
   plugins: [],

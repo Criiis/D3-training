@@ -1,6 +1,6 @@
 const CompaniesCard = () => {
   return (
-    <div className="bg-[#f0e6ff] rounded-xl p-3 dark:bg-slate-800 w-[200px] min-h-[200px] flex flex-col justify-between">
+    <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-[200px] min-h-[200px] flex flex-col justify-between">
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ const CompaniesCard = () => {
           <p className="m-0 mt-1 font-medium text-xs">Current Value</p>
           <p className="m-0 font-medium text-2xl">£ 203.67</p>
         </div>
-        <div>
+        <div className="text-right">
           <p className="m-0 text-xs font-bold">AAPL</p>
           <p className="m-0 text-xs font-bold text-green-400">+02.67</p>
         </div>
