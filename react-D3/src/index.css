@@ -16,17 +16,12 @@
   --background: white;
 }
 
-[data-theme="dark"] {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-}
-
 body {
   margin: 0;
   padding: 0;
 }
+
 body * {
-  @apply transition-bg duration-500 ease-in-out;
+  @apply transition-bg duration-200;
   box-sizing: border-box;
 }
