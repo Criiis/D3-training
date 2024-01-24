@@ -14,8 +14,8 @@ interface CompaniesCardProps {
 }
 
 const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
-  const initialPrice = 20 + Math.random() * 500;
   const data = useMemo(() => {
+    const initialPrice = 20 + Math.random() * 500;
     const tempData = [];
     for (let i = 0; i < 30; i++) {
       const x = i;
@@ -23,7 +23,7 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
       tempData.push({ x, y });
     }
     return tempData;
-  }, [initialPrice]);
+  }, []);
   const changePercentage = useMemo(
     () => calculatePercentageIncrease(data[0].y, data[data.length - 1].y),
     [data]

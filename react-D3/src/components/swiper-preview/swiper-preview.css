@@ -9,8 +9,10 @@
   width: 40px;
   height: 100%;
   background: linear-gradient(90deg, rgba(18, 18, 18, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  opacity: 1;
   z-index: 10;
   pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .swiper-slide {
@@ -22,4 +24,9 @@
 
 .dark .swiper-fading::after {
   background: linear-gradient(90deg, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 1) 100%);
+}
+
+.swiper-fading.swiper-fading--end::after {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
