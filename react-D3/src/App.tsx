@@ -1,6 +1,5 @@
 import Header from "./layout/header";
 import TotalCard from "./components/total-card";
-import CompaniesCard from "./components/companies-card";
 import SwiperPreview from "./components/swiper-preview";
 
 // Import Swiper React components
