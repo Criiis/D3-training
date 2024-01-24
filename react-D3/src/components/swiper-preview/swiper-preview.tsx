@@ -1,51 +1,31 @@
-// import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "./swiper-preview.css";
 import CompaniesCard from "../companies-card";
+import { stocks } from "../../data/stocks";
 
-const SwiperPreview = ({ children, className }: any) => {
+interface SwiperPreviewProps {
+  className?: string;
+}
+
+const SwiperPreview = ({ className }: SwiperPreviewProps) => {
   return (
     <Swiper
       slidesPerView={"auto"}
       spaceBetween={16}
-      slidesOffsetAfter={70}
+      slidesOffsetAfter={20}
       pagination={{
         clickable: true,
       }}
       className={`${className} swiper-fading`}
     >
-      {children}
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CompaniesCard />
-      </SwiperSlide>
+      {stocks?.map(({ symbol, name }) => {
+        return (
+          <SwiperSlide key={symbol}>
+            <CompaniesCard symbol={symbol} name={name} />
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };
