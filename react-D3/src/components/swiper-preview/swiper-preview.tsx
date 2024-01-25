@@ -17,18 +17,15 @@ const SwiperPreview = ({ className }: SwiperPreviewProps) => {
       slidesPerView={"auto"}
       spaceBetween={16}
       slidesOffsetAfter={6}
-      pagination={{
-        clickable: true,
-      }}
       onTouchMove={(e) => {
         setIsEnd(e.isEnd);
       }}
       className={`${className} swiper-fading ${isEnd ? "swiper-fading--end" : ""}`}
     >
-      {stocks?.map(({ symbol, name }) => {
+      {stocks?.map(({ symbol, name, logo }) => {
         return (
           <SwiperSlide key={symbol}>
-            <CompaniesCard symbol={symbol} name={name} />
+            <CompaniesCard symbol={symbol} name={name} logo={logo} />
           </SwiperSlide>
         );
       })}
