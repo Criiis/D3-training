@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       width: {
-        swiperCustom: "calc(100% - 350px - 1rem)",
+        homepageTemplate: "calc(100% - 350px - 1rem)",
       },
       boxShadow: {
         simple: "0px 7px 8px -6px rgba(0,0,0,0.37);",

@@ -10,3 +10,39 @@ export const stocks = [
   { symbol: "JNJ", name: "J&J", logo: "./logos/johnson-johnson.svg" },
   { symbol: "WMT", name: "Walmart", logo: "./logos/walmart.svg" },
 ];
+
+export const holdings = {
+  companies: [
+    {
+      symbol: "AMD",
+      name: "AMD",
+      logo: "./logos/amd.svg",
+      hold: 0.78621376,
+      price: 152.2,
+    },
+    {
+      symbol: "PYPL",
+      name: "PayPal",
+      logo: "./logos/paypal.svg",
+      hold: 30.128218974,
+      price: 51.92,
+    },
+    {
+      symbol: "NVDA",
+      name: "Nvidia",
+      logo: "./logos/berkshire-hathaway.svg",
+      hold: 20.232156,
+      price: 613.80,
+    },
+  ],
+  crypto: [
+    { symbol: "BTC", name: "Bitcoin", logo: "./logos/bitcoin.svg", hold: 2.8327, price: 32449.77 },
+    {
+      symbol: "ETH",
+      name: "Ethereum",
+      logo: "./logos/ethereum.svg",
+      hold: 4.00123,
+      price: 1771.73,
+    },
+  ],
+};

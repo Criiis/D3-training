@@ -1,84 +1,46 @@
 import Header from "./layout/header";
 import TotalCard from "./components/total-card";
 import SwiperPreview from "./components/swiper-preview";
+import PreviewCard from "./components/preview-card";
+import { holdings } from "./data/stocks";
 
 // Import Swiper React components
+
+// loop through holdings and render a preview card for each holding
 
 function App() {
   return (
     <>
       <Header />
-      <div className="flex flex-wrap justify-between flex-col mt-4 p-4 md:flex-row md:items-center">
-        <SwiperPreview className="w-full md:w-swiperCustom mb-4 md:mb-0" />
+      <section className="flex flex-wrap justify-between flex-col px-4 md:flex-row md:items-center">
+        <SwiperPreview className="w-full md:w-homepageTemplate mb-4 md:mb-0" />
         <TotalCard />
-      </div>
-      <div>
-        <div className="flex flex-wrap justify-between flex-col-reverse p-4 md:flex-row md:items-center">
-          <div className="w-[calc(100%_-_400px)] h-[100px]"></div>
-          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full md:max-w-[350px] flex flex-col justify-between bg-left-bottom bg-no-repeat">
-            <h2 className="mt-0 mb-1">Holdings</h2>
+      </section>
+      <section className="flex flex-wrap justify-between flex-col-reverse px-4 pt-4 md:flex-row">
+        <div className="w-full md:w-homepageTemplate"></div>
 
-            <div className="py-4 border-solid border-0 border-b border-zinc-700 flex items-center">
-              <div className="w-[40px] h-[40px] rounded-full bg-zinc-200" />
-              <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
-                <div>
-                  <p className="m-0 font-medium text-base leading-5">
-                    Berkshire Hathaway
-                    <br />
-                    <span className="m-0 mt-2 font-medium text-zinc-400 text-xs">
-                      10.3182937 shares
-                    </span>
-                  </p>
-                </div>
-                <p className="m-0 font-medium text-base leading-5 text-right">
-                  £5876.00
-                  <br />
-                  <span className="m-0 text-xs font-bold text-green-400">(10.15%)</span>
-                </p>
-              </div>
-            </div>
-            <div className="py-4 border-solid border-0 border-b border-zinc-700 flex items-center">
-              <div className="w-[40px] h-[40px] rounded-full bg-zinc-200" />
-              <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
-                <div>
-                  <p className="m-0 font-medium text-base leading-5">
-                    Berkshire Hathaway
-                    <br />
-                    <span className="m-0 mt-2 font-medium text-zinc-400 text-xs">
-                      10.3182937 shares
-                    </span>
-                  </p>
-                </div>
-                <p className="m-0 font-medium text-base leading-5 text-right">
-                  £5876.00
-                  <br />
-                  <span className="m-0 text-xs font-bold text-green-400">(10.15%)</span>
-                </p>
-              </div>
-            </div>
-            <div className="py-4 flex items-center">
-              <div className="w-[40px] h-[40px] rounded-full bg-zinc-200" />
-              <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
-                <div>
-                  <p className="m-0 font-medium text-base leading-5">
-                    Berkshire Hathaway
-                    <br />
-                    <span className="m-0 mt-2 font-medium text-zinc-400 text-xs">
-                      10.3182937 shares
-                    </span>
-                  </p>
-                </div>
-                <p className="m-0 font-medium text-base leading-5 text-right">
-                  £5876.00
-                  <br />
-                  <span className="m-0 text-xs font-bold text-green-400">(10.15%)</span>
-                </p>
-              </div>
-            </div>
+        <div className="md:max-w-[350px] w-full">
+          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
+            <h2 className="mt-0 mb-1">My Holdings</h2>
+            {holdings.companies.map((data) => {
+              return <PreviewCard key={data.symbol} stock={data} />;
+            })}
+            <button className="bg-zinc-700 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
+              View all
+            </button>
+          </div>
 
+          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat mt-4">
+            <h2 className="mt-0 mb-1">My Cryptocurrency</h2>
+            {holdings.crypto.map((data) => {
+              return <PreviewCard key={data.symbol} stock={data} />;
+            })}
+            <button className="bg-zinc-700 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
+              Withdraw
+            </button>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

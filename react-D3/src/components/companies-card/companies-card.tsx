@@ -57,7 +57,8 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
             {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
               data[data.length - 1].y - data[0].y
             )}
-            <br />({changePercentage}%)
+            <br />
+            {changePercentage}%
           </p>
         </div>
       </div>
