@@ -8,9 +8,10 @@ interface DataPoint {
 
 interface ChartPreviewProps {
   data: DataPoint[];
+  symbol: string;
 }
 
-const ChartPreview = ({ data }: ChartPreviewProps) => {
+const ChartPreview = ({ data, symbol }: ChartPreviewProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   const color = useMemo(() => {
@@ -20,8 +21,39 @@ const ChartPreview = ({ data }: ChartPreviewProps) => {
 
   useEffect(() => {
     const currentChartRef = chartRef.current;
-    const width = 120;
-    const height = 60;
+    const width = 170;
+    const height = 80;
+
+    const createGradient = (select: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+      const gradient = select
+        .select("defs")
+        .append("linearGradient")
+        .attr("id", `gradient-${symbol}`)
+        .attr("x1", "0%")
+        .attr("y1", "100%")
+        .attr("x2", "0%")
+        .attr("y2", "0%");
+
+      gradient
+        .append("stop")
+        .attr("offset", "0%")
+        .attr("style", `stop-color:${color};stop-opacity:0`);
+
+      gradient
+        .append("stop")
+        .attr("offset", "100%")
+        .attr("style", `stop-color:${color};stop-opacity:.3`);
+    };
+
+    const svg = d3
+      .select(currentChartRef)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g");
+
+    svg.append("defs");
+    svg.call(createGradient);
 
     // horizontal line
     const x = d3
@@ -39,29 +71,40 @@ const ChartPreview = ({ data }: ChartPreviewProps) => {
     const line = d3
       .line<DataPoint>()
       .x((d) => x(d.x))
-      .y((d) => y(d.y));
+      .y((d) => y(d.y))
+      .curve(d3.curveCatmullRom.alpha(0));
 
-    const svg = d3
-      .select(currentChartRef)
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .append("g");
-
+    // apply the line/glow
     svg
       .append("path")
       .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", color)
-      .attr("stroke-width", 2)
-      .attr("d", line);
+      .attr("d", line)
+      .attr("stroke-width", "2")
+      .style("fill", "none")
+      .style("filter", "url(#glow)")
+      .attr("stroke", color);
+
+    // apply the gradient
+    svg
+      .append("path")
+      .datum(data)
+      .attr("fill", `url(#gradient-${symbol})`)
+      .attr("d", (d) => {
+        const area = d3
+          .area<DataPoint>()
+          .x((d) => x(d.x))
+          .y0(height)
+          .y1((d) => y(d.y))
+          .curve(d3.curveCatmullRom.alpha(0));
+        return area(d);
+      });
 
     return () => {
       if (currentChartRef) {
         currentChartRef.innerHTML = "";
       }
     };
-  }, [color, data]);
+  }, [color, data, symbol]);
 
   return <div ref={chartRef}></div>;
 };
