@@ -32,7 +32,7 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
         <CompanyLogo logo={logo} name={name} />
         <p className="m-0 mt-1 font-medium text-lg">{name}</p>
       </div>
-      <ChartPreview data={data} />
+      <ChartPreview data={data} symbol={symbol} />
 
       <div className="flex justify-between items-end">
         <div>

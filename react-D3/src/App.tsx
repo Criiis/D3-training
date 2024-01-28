@@ -3,6 +3,7 @@ import TotalCard from "./components/total-card";
 import SwiperPreview from "./components/swiper-preview";
 import PreviewCard from "./components/preview-card";
 import { holdings } from "./data/stocks";
+import MainChart from "./components/main-chart";
 
 // Import Swiper React components
 
@@ -17,7 +18,9 @@ function App() {
         <TotalCard />
       </section>
       <section className="flex flex-wrap justify-between flex-col-reverse px-4 pt-4 md:flex-row">
-        <div className="w-full md:w-homepageTemplate"></div>
+        <div className="w-full md:w-homepageTemplate">
+          <MainChart />
+        </div>
 
         <div className="md:max-w-[350px] w-full">
           <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
