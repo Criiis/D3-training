@@ -30,18 +30,18 @@ export const holdings = {
     {
       symbol: "NVDA",
       name: "Nvidia",
-      logo: "./logos/berkshire-hathaway.svg",
+      logo: "./logos/nvidia.svg",
       hold: 20.232156,
       price: 613.80,
     },
   ],
   crypto: [
-    { symbol: "BTC", name: "Bitcoin", logo: "./logos/bitcoin.svg", hold: 2.8327, price: 32449.77 },
+    { symbol: "BTC", name: "Bitcoin", logo: "./logos/bitcoin.svg", hold: 0.8327, price: 32449.77 },
     {
       symbol: "ETH",
       name: "Ethereum",
       logo: "./logos/ethereum.svg",
-      hold: 4.00123,
+      hold: 1.401523,
       price: 1771.73,
     },
   ],

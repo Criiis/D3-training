@@ -1,11 +1,22 @@
 import { useMemo } from "react";
+import CompanyLogo from "../company-logo";
 
-const PreviewCard = ({ stock }: any) => {
+interface PreviewCardProps {
+  stock: {
+    name: string;
+    symbol: string;
+    logo: string;
+    price: number;
+    hold: number;
+  };
+}
+
+const PreviewCard = ({ stock }: PreviewCardProps) => {
   const movePercentage = useMemo(() => (Math.random() * (10 - -15) + -15).toFixed(2), []);
 
   return (
     <div className="py-4 border-solid border-0 border-b border-zinc-700 flex items-center last-of-type:border-none">
-      <div className="w-[40px] h-[40px] rounded-lg bg-zinc-200" />
+      <CompanyLogo logo={stock.logo} name={stock.name} />
       <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
         <div>
           <p className="m-0 font-medium text-base leading-5">
@@ -30,7 +41,6 @@ const PreviewCard = ({ stock }: any) => {
             {movePercentage}% /{" "}
             {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
               stock.hold * stock.price * (Number(movePercentage) / 100)
-              // (stock.hold * stock.price) / movePercentage
             )}
           </span>
         </p>
