@@ -1,16 +1,12 @@
 import { useMemo } from "react";
 import ChartPreview from "./chart-preview";
-
-const calculatePercentageIncrease = (openingPrice: number, closingPrice: number) => {
-  const difference = closingPrice - openingPrice;
-  const percentageIncrease = (difference / openingPrice) * 100;
-  return percentageIncrease.toFixed(2); // returns result with 2 decimal places
-};
+import CompanyLogo from "../company-logo";
+import calculatePercentageIncrease from "../../lib/percentage-up-or-down";
 
 interface CompaniesCardProps {
   symbol: string;
   name: string;
-  logo?: string;
+  logo: string;
 }
 
 const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
@@ -18,8 +14,9 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
     const initialPrice = 20 + Math.random() * 500;
     const tempData = [];
     for (let i = 0; i < 30; i++) {
+      const value: number = tempData[i - 1]?.y || initialPrice;
       const x = i;
-      const y = initialPrice + Math.random() * 20 - 10;
+      const y = value + Math.random() * 4 - 2;
       tempData.push({ x, y });
     }
     return tempData;
@@ -32,9 +29,7 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
   return (
     <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-[200px] min-h-[200px] flex flex-col justify-between">
       <div className="flex items-center">
-        <div className="w-[35px] h-[35px] mr-2 rounded-lg bg-slate-300 dark:bg-slate-200">
-          <img className="p-1 w-[35px] h-[35px] object-contain" src={logo} />
-        </div>
+        <CompanyLogo logo={logo} name={name} />
         <p className="m-0 mt-1 font-medium text-lg">{name}</p>
       </div>
       <ChartPreview data={data} />
