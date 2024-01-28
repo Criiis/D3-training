@@ -74,14 +74,13 @@ const ChartPreview = ({ data, symbol }: ChartPreviewProps) => {
       .y((d) => y(d.y))
       .curve(d3.curveCatmullRom.alpha(0));
 
-    // apply the line/glow
+    // apply the line
     svg
       .append("path")
       .datum(data)
       .attr("d", line)
       .attr("stroke-width", "2")
       .style("fill", "none")
-      .style("filter", "url(#glow)")
       .attr("stroke", color);
 
     // apply the gradient
