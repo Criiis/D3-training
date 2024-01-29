@@ -1,10 +1,6 @@
 const TotalCard = () => {
   return (
-    <div
-      className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full md:max-w-[350px] min-h-[200px] flex flex-col justify-between bg-left-bottom bg-no-repeat"
-      style={{ backgroundImage: "url('./background-texture.png')" }}
-      // TODO: Add a background image to the card needs to work for white theme
-    >
+    <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-900 w-full md:max-w-[350px] min-h-[200px] flex flex-col justify-between">
       <p className="m-0 mt-1 font-medium text-s mb-5">Total Holding</p>
 
       <div>
