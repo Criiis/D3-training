@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 import data from "./data";
 import { useTheme } from "next-themes";
@@ -92,16 +92,16 @@ const MainChart = () => {
         <button
           onClick={chartLine}
           className={`${
-            isCandleChart ? "bg-transparent" : "bg-gray-700 font-bold"
-          }  border border-transparent cursor-pointer rounded-md justify-center min-w-10 relative text-base hover:bg-gray-800`}
+            isCandleChart ? "bg-transparent" : "bg-zinc-300 dark:bg-zinc-800"
+          }  border border-transparent cursor-pointer rounded-md justify-center relative text-base font-bold hover:bg-zinc-900`}
         >
           Line
         </button>
         <button
           onClick={chartCandle}
           className={`${
-            !isCandleChart ? "bg-transparent" : "bg-gray-700 font-bold"
-          }  border border-transparent cursor-pointer rounded-md justify-center min-w-10 relative text-base hover:bg-gray-800`}
+            !isCandleChart ? "bg-transparent" : "bg-zinc-300 dark:bg-zinc-800"
+          }  border border-transparent cursor-pointer rounded-md justify-center relative text-base font-bold hover:bg-zinc-900`}
         >
           Candle
         </button>

@@ -23,22 +23,22 @@ function App() {
         </div>
 
         <div className="md:max-w-[350px] w-full">
-          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
+          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
             <h2 className="mt-0 mb-1">My Holdings</h2>
             {holdings.companies.map((data) => {
               return <PreviewCard key={data.symbol} stock={data} />;
             })}
-            <button className="bg-zinc-700 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
+            <button className="bg-zinc-800 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
               View all
             </button>
           </div>
 
-          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-800 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat mt-4">
+          <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat mt-4">
             <h2 className="mt-0 mb-1">My Cryptocurrency</h2>
             {holdings.crypto.map((data) => {
               return <PreviewCard key={data.symbol} stock={data} />;
             })}
-            <button className="bg-zinc-700 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
+            <button className="bg-zinc-800 text-white border-0 text-base rounded-lg py-2 px-4 cursor-pointer">
               Withdraw
             </button>
           </div>
