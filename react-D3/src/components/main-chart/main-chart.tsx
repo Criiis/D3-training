@@ -1,75 +1,95 @@
-import { useEffect, useRef } from "react";
-import data from "../../data/data-ibm.json";
-import * as d3 from "d3";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createChart } from "lightweight-charts";
+import data from "./data";
+import { useTheme } from "next-themes";
 
-const dailyData: { [key: string]: { [key: string]: string } } = data["Time Series (Daily)"];
-// get all the dates
-const dates = Object.keys(dailyData);
-// get all the closing prices
-const closingPrices = dates.map((date) => {
-  return {
-    date,
-    close: Number(dailyData[date]["4. close"]),
-  };
-});
+const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 
 const MainChart = () => {
-  const chartRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const parent = useRef<HTMLDivElement>(null);
+  const candleChartRef = useRef<HTMLDivElement>(null);
+  const [isCandleChart, setIsCandleChart] = useState(true);
+  const [parentWidth, setParentWidth] = useState(parent.current?.offsetWidth);
+
+  // update parent.current?.offsetWidth when resize window
   useEffect(() => {
-    const currentChartRef = chartRef.current;
-    const WIDTH = 800;
-    const HEIGHT = 450;
-    const MARGIN = { top: 10, right: 10, bottom: 20, left: 30 };
-    const INNER_WIDTH = WIDTH - MARGIN.left - MARGIN.right;
-    const INNER_HEIGHT = HEIGHT - MARGIN.top - MARGIN.bottom;
+    const handleResize = () => {
+      setParentWidth(parent.current?.offsetWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-    console.log(dailyData);
-    // build svg
-    const svg = d3
-      .select(currentChartRef)
-      .append("svg")
-      .attr("width", WIDTH)
-      .attr("height", HEIGHT)
-      .attr("style", "width: 100%; height: 100%; max-height: 600px;")
-      .append("g")
-      .attr("transform", `translate(${MARGIN.left},${MARGIN.top})`);
+  // build chart
+  useEffect(() => {
+    const currentChartRef = candleChartRef.current;
+    if (!currentChartRef) return;
 
-    // const x = d3_scaleLinear().domain([0, 1]).range([0, INNER_WIDTH]);
-    // const y = d3_scaleLinear().domain([0, 1]).range([INNER_HEIGHT, 0]);
-    // const xAxis = d3_axisBottom(x).ticks(10);
-    // const yAxis = d3_axisLeft(y).ticks(10);
-    // const xAxisGrid = d3_axisBottom(x).tickSize(-INNER_HEIGHT).tickFormat(null).ticks(10);
-    // const yAxisGrid = d3_axisLeft(y).tickSize(-INNER_WIDTH).tickFormat(null).ticks(10);
+    const chart = createChart(currentChartRef, {
+      width: parentWidth,
+      height: 600,
+      layout: {
+        background: {
+          color: "transparent",
+        },
+        textColor: theme === "dark" ? "#fff" : "#000",
+      },
+      grid: {
+        vertLines: {
+          color: theme === "dark" ? "rgba(88, 88, 88, 0.2)" : "rgba(197, 203, 206, 0.2)",
+        },
+        horzLines: {
+          color: theme === "dark" ? "rgba(88, 88, 88, 0.2)" : "rgba(197, 203, 206, 0.2)",
+        },
+      },
+      rightPriceScale: {
+        borderColor: "rgba(197, 203, 206, 0.2)",
+      },
+      timeScale: {
+        borderColor: "rgba(197, 203, 206, 0.2)",
+      },
+    });
 
-    // const svg = d3_select(currentChartRef)
-    //   .append("svg")
-    //   .attr("width", WIDTH)
-    //   .attr("height", HEIGHT)
-    //   //   .attr("preserveAspectRatio", "xMinYMin meet")
-    //   .attr("viewBox", `0 0 ${WIDTH} ${HEIGHT}`)
-    //   .attr("style", "width: 100%; height: 100%; max-height: 600px;")
-    //   .append("g")
-    //   .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-
-    // // svg
-    // //   .append("g")
-    // //   .attr("color", "#666")
-    // //   .attr("class", "x axis-grid")
-    // //   .attr("transform", "translate(0," + INNER_HEIGHT + ")")
-    // //   .call(xAxisGrid);
-    // // svg.append("g").attr("color", "#666").attr("class", "y axis-grid").call(yAxisGrid);
-
-    // // Create axes.
-    // svg.append("g").call(yAxis);
+    if (isCandleChart) {
+      const candleSeries = chart.addCandlestickSeries({
+        upColor: "#26a69a",
+        downColor: "#ef5350",
+        borderDownColor: "#ef5350",
+        borderUpColor: "#26a69a",
+        wickDownColor: "#ef5350",
+        wickUpColor: "#26a69a",
+      });
+      candleSeries.setData(data);
+    } else {
+      const areaSeries = chart.addAreaSeries({
+        topColor: "rgb(72, 74, 255, 0.4)",
+        bottomColor: "rgba(67, 83, 254, 0.1)",
+        lineColor: "rgba(67, 83, 254, 1)",
+        lineWidth: 2,
+      });
+      areaSeries.setData(lineData);
+    }
 
     return () => {
       if (currentChartRef) {
         currentChartRef.innerHTML = "";
       }
     };
-  }, []);
+  }, [isCandleChart, parentWidth, theme]);
 
-  return <div ref={chartRef}></div>;
+  const toggleChart = () => {
+    setIsCandleChart((prevSate) => !prevSate);
+  };
+
+  return (
+    <section ref={parent} className="w-full">
+      <button onClick={toggleChart}>Line</button>
+      <div ref={candleChartRef} />
+    </section>
+  );
 };
 
 export default MainChart;
