@@ -7,15 +7,14 @@ const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 
 const MainChart = () => {
   const { theme } = useTheme();
-  const parent = useRef<HTMLDivElement>(null);
   const candleChartRef = useRef<HTMLDivElement>(null);
   const [isCandleChart, setIsCandleChart] = useState(true);
-  const [parentWidth, setParentWidth] = useState(parent.current?.offsetWidth);
+  const [parentWidth, setParentWidth] = useState(candleChartRef.current?.offsetWidth);
 
   // update parent.current?.offsetWidth when resize window
   useEffect(() => {
     const handleResize = () => {
-      setParentWidth(parent.current?.offsetWidth);
+      setParentWidth(candleChartRef.current?.offsetWidth);
     };
     window.addEventListener("resize", handleResize);
     return () => {
@@ -80,14 +79,34 @@ const MainChart = () => {
     };
   }, [isCandleChart, parentWidth, theme]);
 
-  const toggleChart = () => {
-    setIsCandleChart((prevSate) => !prevSate);
+  const chartLine = () => {
+    setIsCandleChart(false);
+  };
+  const chartCandle = () => {
+    setIsCandleChart(true);
   };
 
   return (
-    <section ref={parent} className="w-full">
-      <button onClick={toggleChart}>Line</button>
-      <div ref={candleChartRef} />
+    <section className="w-full flex flex-col items-start justify-start">
+      <div className="border border-gray-700 border-solid rounded-lg space-x-1 p-1 mb-1">
+        <button
+          onClick={chartLine}
+          className={`${
+            isCandleChart ? "bg-transparent" : "bg-gray-700 font-bold"
+          }  border border-transparent cursor-pointer rounded-md justify-center min-w-10 relative text-base hover:bg-gray-800`}
+        >
+          Line
+        </button>
+        <button
+          onClick={chartCandle}
+          className={`${
+            !isCandleChart ? "bg-transparent" : "bg-gray-700 font-bold"
+          }  border border-transparent cursor-pointer rounded-md justify-center min-w-10 relative text-base hover:bg-gray-800`}
+        >
+          Candle
+        </button>
+      </div>
+      <div className="w-full" ref={candleChartRef} />
     </section>
   );
 };
