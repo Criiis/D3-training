@@ -22,7 +22,7 @@ const ChartPreview = ({ data, symbol }: ChartPreviewProps) => {
   useEffect(() => {
     const currentChartRef = chartRef.current;
     const width = 170;
-    const height = 80;
+    const height = 75;
 
     const createGradient = (select: d3.Selection<SVGGElement, unknown, null, undefined>) => {
       const gradient = select
@@ -55,6 +55,14 @@ const ChartPreview = ({ data, symbol }: ChartPreviewProps) => {
     svg.append("defs");
     svg.call(createGradient);
 
+    // Define clip path
+    svg
+      .append("clipPath")
+      .attr("id", "clip-path")
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
     // horizontal line
     const x = d3
       .scaleLinear()
@@ -72,29 +80,31 @@ const ChartPreview = ({ data, symbol }: ChartPreviewProps) => {
       .line<DataPoint>()
       .x((d) => x(d.x))
       .y((d) => y(d.y))
-      .curve(d3.curveCatmullRom.alpha(0));
+      .curve(d3.curveCatmullRom.alpha(0.5));
 
     // apply the line
     svg
       .append("path")
       .datum(data)
       .attr("d", line)
-      .attr("stroke-width", "2")
+      .attr("stroke-width", "1")
       .style("fill", "none")
-      .attr("stroke", color);
+      .attr("stroke", color)
+      .attr("clip-path", "url(#clip-path)");
 
     // apply the gradient
     svg
       .append("path")
       .datum(data)
       .attr("fill", `url(#gradient-${symbol})`)
+      .attr("clip-path", "url(#clip-path)")
       .attr("d", (d) => {
         const area = d3
           .area<DataPoint>()
           .x((d) => x(d.x))
           .y0(height)
           .y1((d) => y(d.y))
-          .curve(d3.curveCatmullRom.alpha(0));
+          .curve(d3.curveCatmullRom.alpha(0.5));
         return area(d);
       });
 
