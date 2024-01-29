@@ -15,7 +15,7 @@ const PreviewCard = ({ stock }: PreviewCardProps) => {
   const movePercentage = useMemo(() => (Math.random() * (10 - -15) + -15).toFixed(2), []);
 
   return (
-    <div className="py-4 border-solid border-0 border-b border-zinc-700 flex items-center last-of-type:border-none">
+    <div className="py-4 border-solid border-0 border-b border-zinc-200 dark:border-zinc-700 flex items-center last-of-type:border-none">
       <CompanyLogo logo={stock.logo} name={stock.name} />
       <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
         <div>

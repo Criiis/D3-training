@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="w-full max-w-screen-md mx-auto my-2 p-4 md:p-1 flex items-center justify-center">
       {/* Search bar */}
-      <div className="w-5/12 flex items-center relative py-1 px-3 bg-slate-50 rounded-3xl border border-solid border-slate-400">
+      <div className="w-5/12 flex items-center relative py-1 px-3 bg-slate-100 rounded-3xl border border-solid border-slate-400">
         <input
           type="text"
           placeholder="Find anything..."

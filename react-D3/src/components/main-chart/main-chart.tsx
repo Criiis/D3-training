@@ -8,7 +8,7 @@ const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 const MainChart = () => {
   const { theme } = useTheme();
   const candleChartRef = useRef<HTMLDivElement>(null);
-  const [isCandleChart, setIsCandleChart] = useState(true);
+  const [isCandleChart, setIsCandleChart] = useState(false);
   const [parentWidth, setParentWidth] = useState(candleChartRef.current?.offsetWidth);
 
   // update parent.current?.offsetWidth when resize window

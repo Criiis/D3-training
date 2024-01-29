@@ -27,7 +27,7 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
   );
 
   return (
-    <div className="bg-zinc-200 rounded-xl p-3 dark:bg-zinc-900 w-[200px] min-h-[200px] flex flex-col justify-between">
+    <div className="bg-slate-100 rounded-xl p-3 dark:bg-zinc-900 w-[200px] min-h-[200px] flex flex-col justify-between">
       <div className="flex items-center">
         <CompanyLogo logo={logo} name={name} />
         <p className="m-0 mt-1 font-medium text-lg">{name}</p>
