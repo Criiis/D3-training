@@ -19,7 +19,9 @@ const HoldingCard = ({ children, title, actionText, className }: HoldingCardProp
     >
       <h2 className="mt-0 mb-1">{title}</h2>
       {children}
-      <Button fullWidth>{actionText}</Button>
+      <Button className="mb-2" fullWidth>
+        {actionText}
+      </Button>
     </div>
   );
 };

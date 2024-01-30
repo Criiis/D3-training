@@ -6,11 +6,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
   isActive?: boolean;
+  isMargin?: boolean;
+  className?: string;
 }
 
 const variantClasses = {
   primary:
-    "bg-zinc-300 dark:bg-zinc-800 px-5 py-2.5 me-2 mb-2 dark:hover:bg-zinc-700 hover:bg-zinc-200",
+    "bg-zinc-300 dark:bg-zinc-800 px-5 py-2.5 dark:hover:bg-zinc-700 hover:bg-zinc-200",
   secondary: "bg-transparent px-2 py-1 hover:bg-zinc-200 dark:hover:bg-zinc-700",
 };
 
@@ -19,6 +21,7 @@ const Button = ({
   variant = "primary",
   fullWidth = false,
   isActive = false,
+  className,
   ...props
 }: ButtonProps) => {
   return (
@@ -27,7 +30,8 @@ const Button = ({
         "cursor-pointer border-none font-bold transition-colors text-sm rounded-md",
         variantClasses[variant],
         fullWidth && "w-full",
-        isActive && "bg-zinc-200 dark:bg-zinc-800"
+        isActive && "bg-zinc-200 dark:bg-zinc-800",
+        className && className
       )}
       {...props}
     >

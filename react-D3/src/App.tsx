@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "./layout/header";
 import TotalCard from "./components/total-card";
 import SwiperPreview from "./components/swiper-preview";
@@ -7,10 +8,15 @@ import HoldingCard from "./components/holding-card";
 import { holdings } from "./data/stocks";
 import updateHoldingStocks from "./lib/update-holding-stocks";
 import Pill from "./components/pill";
+import DisclaimerContainer from "./components/disclaimer-container";
 
 const holdingData = updateHoldingStocks(holdings);
 
-function App() {
+const App = () => {
+  const [isDisclaimerActive, setIsDisclaimerActive] = useState(true);
+  const handleDisclaimerClick = () => {
+    setIsDisclaimerActive(false);
+  };
   return (
     <>
       <Header />
@@ -42,8 +48,9 @@ function App() {
           </HoldingCard>
         </div>
       </section>
+      {isDisclaimerActive && <DisclaimerContainer onClick={handleDisclaimerClick} />}
     </>
   );
-}
+};
 
 export default App;
