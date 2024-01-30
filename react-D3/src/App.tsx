@@ -23,7 +23,7 @@ function App() {
         </div>
 
         <div className="md:max-w-[350px] w-full">
-          <div className="bg-slate-100 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
+          <div className="bg-gray-100 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat">
             <h2 className="mt-0 mb-1">My Holdings</h2>
             {holdings.companies.map((data) => {
               return <PreviewCard key={data.symbol} stock={data} />;
@@ -33,7 +33,7 @@ function App() {
             </button>
           </div>
 
-          <div className="bg-slate-100 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat mt-4">
+          <div className="bg-gray-100 rounded-xl p-3 dark:bg-zinc-900 w-full flex flex-col justify-between bg-left-bottom bg-no-repeat mt-4">
             <h2 className="mt-0 mb-1">My Cryptocurrency</h2>
             {holdings.crypto.map((data) => {
               return <PreviewCard key={data.symbol} stock={data} />;

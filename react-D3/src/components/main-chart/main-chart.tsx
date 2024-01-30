@@ -1,52 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 import data from "./data";
-import { useTheme } from "next-themes";
 
 const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 
-// TODO: improve it with 
-// chart.applyOptions({ width: ... });
-// try to fix the reset of the setVisibleRange
-// https://tradingview.github.io/lightweight-charts/tutorials/react/simple
-
 const MainChart = () => {
-  const { theme } = useTheme();
   const candleChartRef = useRef<HTMLDivElement>(null);
   const [isCandleChart, setIsCandleChart] = useState(false);
-  const [parentWidth, setParentWidth] = useState(candleChartRef.current?.offsetWidth);
-
-  // update parent.current?.offsetWidth when resize window
-  useEffect(() => {
-    const handleResize = () => {
-      setParentWidth(candleChartRef.current?.offsetWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   // build chart
   useEffect(() => {
     const currentChartRef = candleChartRef.current;
     if (!currentChartRef) return;
 
+    const handleResize = () => {
+      chart.applyOptions({ width: candleChartRef.current?.offsetWidth });
+    };
+
     const chart = createChart(currentChartRef, {
-      width: parentWidth,
+      width: candleChartRef.current?.offsetWidth,
       height: 600,
       layout: {
         background: {
           color: "transparent",
         },
-        textColor: theme === "dark" ? "#fff" : "#000",
+        textColor: "rgba(88, 88, 88, 1)",
       },
       grid: {
         vertLines: {
-          color: theme === "dark" ? "rgba(88, 88, 88, 0.2)" : "rgba(197, 203, 206, 0.2)",
+          color: "rgba(88, 88, 88, 0.2)",
         },
         horzLines: {
-          color: theme === "dark" ? "rgba(88, 88, 88, 0.2)" : "rgba(197, 203, 206, 0.2)",
+          color: "rgba(88, 88, 88, 0.2)",
         },
       },
       rightPriceScale: {
@@ -69,7 +54,7 @@ const MainChart = () => {
       candleSeries.setData(data);
     } else {
       const areaSeries = chart.addAreaSeries({
-        topColor: "rgb(72, 74, 255, 0.4)",
+        topColor: "rgb(67, 83, 254, 0.4)",
         bottomColor: "rgba(67, 83, 254, 0.1)",
         lineColor: "rgba(67, 83, 254, 1)",
         lineWidth: 2,
@@ -82,12 +67,13 @@ const MainChart = () => {
       to: (new Date(data[data.length - 1].time).getTime() / 1000) as any,
     });
 
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      if (currentChartRef) {
-        currentChartRef.innerHTML = "";
-      }
+      window.removeEventListener("resize", handleResize);
+      chart.remove();
     };
-  }, [isCandleChart, parentWidth, theme]);
+  }, [isCandleChart]);
 
   const chartLine = () => {
     setIsCandleChart(false);
