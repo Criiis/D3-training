@@ -1,20 +1,13 @@
-import { useMemo } from "react";
 import CompanyLogo from "../company-logo";
 import clsx from "clsx";
+import { Holding } from "../../lib/update-holding-stocks";
+import toCurrency from "../../lib/to-currency";
 
 interface PreviewCardProps {
-  stock: {
-    name: string;
-    symbol: string;
-    logo: string;
-    price: number;
-    hold: number;
-  };
+  stock: Holding;
 }
 
 const PreviewCard = ({ stock }: PreviewCardProps) => {
-  const movePercentage = useMemo(() => (Math.random() * (10 - -15) + -15).toFixed(2), []);
-
   return (
     <div className="py-4 border-solid border-0 border-b border-zinc-200 dark:border-zinc-700 flex items-center last-of-type:border-none">
       <CompanyLogo logo={stock.logo} name={stock.name} />
@@ -30,19 +23,17 @@ const PreviewCard = ({ stock }: PreviewCardProps) => {
           </p>
         </div>
         <p className="m-0 font-medium text-base leading-5 text-right">
-          {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
-            stock.hold * stock.price
-          )}
+          {toCurrency(stock.hold * stock.price)}
           <br />
           <span
             className={clsx("m-0 text-xs font-bold", {
-              "text-red-500": Number(movePercentage) < 0,
-              "text-green-400": Number(movePercentage) >= 0,
+              "text-red-500": Number(stock.percentage) < 0,
+              "text-green-400": Number(stock.percentage) >= 0,
             })}
           >
-            {movePercentage}% (
-            {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
-              stock.hold * stock.price + stock.hold * stock.price * (Number(movePercentage) / 100)
+            {stock.percentage}% (
+            {toCurrency(
+              stock.hold * stock.price + stock.hold * stock.price * (Number(stock.percentage) / 100)
             )}
             )
           </span>
