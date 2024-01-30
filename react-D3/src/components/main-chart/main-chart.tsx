@@ -5,6 +5,11 @@ import { useTheme } from "next-themes";
 
 const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 
+// TODO: improve it with 
+// chart.applyOptions({ width: ... });
+// try to fix the reset of the setVisibleRange
+// https://tradingview.github.io/lightweight-charts/tutorials/react/simple
+
 const MainChart = () => {
   const { theme } = useTheme();
   const candleChartRef = useRef<HTMLDivElement>(null);
@@ -71,6 +76,11 @@ const MainChart = () => {
       });
       areaSeries.setData(lineData);
     }
+
+    chart.timeScale().setVisibleRange({
+      from: (new Date(data[0].time).getTime() / 1000) as any,
+      to: (new Date(data[data.length - 1].time).getTime() / 1000) as any,
+    });
 
     return () => {
       if (currentChartRef) {
