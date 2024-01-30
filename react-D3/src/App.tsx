@@ -6,6 +6,7 @@ import MainChart from "./components/main-chart";
 import HoldingCard from "./components/holding-card";
 import { holdings } from "./data/stocks";
 import updateHoldingStocks from "./lib/update-holding-stocks";
+import Pill from "./components/pill";
 
 const holdingData = updateHoldingStocks(holdings);
 
@@ -13,8 +14,14 @@ function App() {
   return (
     <>
       <Header />
+
+      <div className="px-4 mb-2">
+        <Pill active>🔥 Trending</Pill>
+        <Pill>💻 Tech</Pill>
+      </div>
+
       <section className="flex flex-wrap justify-between flex-col px-4 md:flex-row md:items-center">
-        <SwiperPreview className="w-full md:w-homepageTemplate mb-4 md:mb-0" />
+        <SwiperPreview className="w-full md:w-homepageTemplate mb-4 md:mb-0 md:mr-4" />
         <TotalCard holdings={holdingData} />
       </section>
 

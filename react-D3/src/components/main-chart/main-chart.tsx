@@ -20,7 +20,7 @@ const MainChart = () => {
 
     const chart = createChart(currentChartRef, {
       width: candleChartRef.current?.offsetWidth,
-      height: 600,
+      height: 575,
       layout: {
         background: {
           color: "transparent",

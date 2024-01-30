@@ -24,7 +24,7 @@ const Button = ({
   return (
     <button
       className={clsx(
-        "cursor-pointer border-none font-bold transition-colors text-base rounded-md",
+        "cursor-pointer border-none font-bold transition-colors text-sm rounded-md",
         variantClasses[variant],
         fullWidth && "w-full",
         isActive && "bg-zinc-200 dark:bg-zinc-800"
