@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import ChartPreview from "./chart-preview";
 import CompanyLogo from "../company-logo";
 import calculatePercentageIncrease from "../../lib/percentage-up-or-down";
+import clsx from "clsx";
 
 interface CompaniesCardProps {
   symbol: string;
@@ -45,9 +46,10 @@ const CompaniesCard = ({ symbol, name, logo }: CompaniesCardProps) => {
         </div>
         <div className="text-right">
           <p
-            className={`m-0 text-xs font-bold ${
-              Number(changePercentage) < 0 ? "text-red-500" : "text-green-400"
-            }`}
+            className={clsx("m-0 text-xs font-bold", {
+              "text-red-500": Number(changePercentage) < 0,
+              "text-green-400": Number(changePercentage) >= 0,
+            })}
           >
             {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
               data[data.length - 1].y - data[0].y

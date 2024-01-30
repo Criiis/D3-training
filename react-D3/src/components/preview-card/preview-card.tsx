@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import CompanyLogo from "../company-logo";
+import clsx from "clsx";
 
 interface PreviewCardProps {
   stock: {
@@ -17,7 +18,7 @@ const PreviewCard = ({ stock }: PreviewCardProps) => {
   return (
     <div className="py-4 border-solid border-0 border-b border-zinc-200 dark:border-zinc-700 flex items-center last-of-type:border-none">
       <CompanyLogo logo={stock.logo} name={stock.name} />
-      <div className="flex justify-between w-[calc(100%_-40px)] items-end pl-2">
+      <div className="flex justify-between w-[calc(100%_-40px)] items-center pl-2">
         <div>
           <p className="m-0 font-medium text-base leading-5">
             {stock.name}
@@ -34,14 +35,16 @@ const PreviewCard = ({ stock }: PreviewCardProps) => {
           )}
           <br />
           <span
-            className={`m-0 text-xs font-bold ${
-              Number(movePercentage) < 0 ? "text-red-500" : "text-green-400"
-            }`}
+            className={clsx("m-0 text-xs font-bold", {
+              "text-red-500": Number(movePercentage) < 0,
+              "text-green-400": Number(movePercentage) >= 0,
+            })}
           >
-            {movePercentage}% /{" "}
+            {movePercentage}% (
             {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
-              stock.hold * stock.price * (Number(movePercentage) / 100)
+              stock.hold * stock.price + stock.hold * stock.price * (Number(movePercentage) / 100)
             )}
+            )
           </span>
         </p>
       </div>

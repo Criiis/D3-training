@@ -4,6 +4,7 @@ import "./swiper-preview.css";
 import CompaniesCard from "../companies-card";
 import { stocks } from "../../data/stocks";
 import { useState } from "react";
+import clsx from "clsx";
 
 interface SwiperPreviewProps {
   className?: string;
@@ -20,7 +21,7 @@ const SwiperPreview = ({ className }: SwiperPreviewProps) => {
       onTouchMove={(e) => {
         setIsEnd(e.isEnd);
       }}
-      className={`${className} swiper-fading ${isEnd ? "swiper-fading--end" : ""}`}
+      className={clsx(className, "swiper-fading", { "swiper-fading--end": isEnd })}
     >
       {stocks?.map(({ symbol, name, logo }) => {
         return (
