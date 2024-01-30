@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 import data from "./data";
+import Button from "../button";
 
 const lineData = data.map((d) => ({ time: d.time, value: d.close }));
 
@@ -83,27 +84,17 @@ const MainChart = () => {
   };
 
   return (
-    <section className="w-full flex flex-col items-start justify-start">
+    <div className="w-full flex flex-col items-start justify-start">
       <div className="border border-gray-700 border-solid rounded-lg space-x-1 p-1 mb-1">
-        <button
-          onClick={chartLine}
-          className={`${
-            isCandleChart ? "bg-transparent" : "bg-zinc-300 dark:bg-zinc-800"
-          }  border border-transparent cursor-pointer rounded-md justify-center relative text-base font-bold hover:bg-zinc-900`}
-        >
+        <Button onClick={chartLine} isActive={!isCandleChart} variant="secondary">
           Line
-        </button>
-        <button
-          onClick={chartCandle}
-          className={`${
-            !isCandleChart ? "bg-transparent" : "bg-zinc-300 dark:bg-zinc-800"
-          }  border border-transparent cursor-pointer rounded-md justify-center relative text-base font-bold hover:bg-zinc-900`}
-        >
+        </Button>
+        <Button onClick={chartCandle} isActive={isCandleChart} variant="secondary">
           Candle
-        </button>
+        </Button>
       </div>
       <div className="w-full" ref={candleChartRef} />
-    </section>
+    </div>
   );
 };
 
